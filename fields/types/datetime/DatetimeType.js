@@ -1,8 +1,9 @@
-var moment = require('moment');
+var moment = require('moment-timezone');
 var DateType = require('../date/DateType');
 var FieldType = require('../Type');
 var util = require('util');
 var _ = require('underscore');
+var keystone = require('../../../');
 
 var parseFormats = ['YYYY-MM-DD', 'YYYY-MM-DD h:m:s a', 'YYYY-MM-DD h:m a', 'YYYY-MM-DD H:m:s', 'YYYY-MM-DD H:m'];
 
@@ -15,10 +16,12 @@ function datetime(list, path, options) {
 	this._nativeType = Date;
 	this._underscoreMethods = ['format', 'moment', 'parse'];
 	this._fixedSize = 'large';
-	this._properties = ['formatString', 'dateFormat', 'timeFormat', 'datePlaceholder', 'timePlaceholder', 'isUTC'];
+	this._properties = ['formatString', 'timezone', 'dateFormat', 'timeFormat', 'datePlaceholder', 'timePlaceholder', 'isUTC'];
 	this.typeDescription = 'date and time';
 	this.parseFormatString = options.parseFormat || parseFormats;
 	this.formatString = (options.format === false) ? false : (options.format || 'YYYY-MM-DD h:mm:ss a');
+	this.timezone = keystone.get('timezone') || 'UTC';
+	moment.tz.setDefault(this.timezone);
 
 	// Create an array of moment time format characters to help find where the time portion of the format string beings
 	var timeOptions = ['h', 'H', 'm', 's', 'S'];

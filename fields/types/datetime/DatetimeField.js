@@ -2,7 +2,7 @@ var React = require('react');
 var Field = require('../Field');
 var Note = require('../../components/Note');
 var DateInput = require('../../components/DateInput');
-var moment = require('moment');
+var moment = require('moment-timezone');
 
 module.exports = Field.create({
 
@@ -11,6 +11,7 @@ module.exports = Field.create({
 	focusTargetRef: 'dateInput',
 
 	getInitialState: function() {
+		moment.tz.setDefault(this.props.timezone);
 		return {
 			dateValue: this.props.value ? this.moment(this.props.value).format(this.props.dateFormat) : '',
 			timeValue: this.props.value ? this.moment(this.props.value).format(this.props.timeFormat) : ''
