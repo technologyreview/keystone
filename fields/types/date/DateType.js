@@ -1,6 +1,7 @@
 var FieldType = require('../Type');
-var moment = require('moment');
+var moment = require('moment-timezone');
 var util = require('util');
+var keystone = require('../../../')
 
 /**
  * Date FieldType Constructor
@@ -12,12 +13,14 @@ function date(list, path, options) {
 	this._nativeType = Date;
 	this._underscoreMethods = ['format', 'moment', 'parse'];
 	this._fixedSize = 'large';
-	this._properties = ['dateFormat', 'datePlaceholder', 'yearRange', 'isUTC'];
+	this._properties = ['dateFormat', 'datePlaceholder', 'yearRange', 'isUTC', 'timezone'];
 	this.parseDateFormat = options.format || 'YYYY-MM-DD';
 	this.dateFormat = (options.format === false) ? false : (options.format || 'YYYY-MM-DD');
 	this.datePlaceholder = this.dateFormat ? 'e.g. ' + moment().format(this.parseDateFormat) : '';
 	this.yearRange = options.yearRange;
 	this.isUTC = options.utc || false;
+	this.timezone = keystone.get('timezone') || 'UTC';
+	moment.tz.setDefault(this.timezone);
 	if (this.dateFormat && 'string' !== typeof this.dateFormat) {
 		throw new Error('FieldType.Date: options.format must be a string.');
 	}
