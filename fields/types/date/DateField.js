@@ -64,7 +64,7 @@ module.exports = Field.create({
 		if (this.shouldRenderField()) {
 			input = (
 				<div className={fieldClassName}>
-					<DateInput ref="dateInput" name={this.props.path} format={this.props.dateFormat} value={this.state.value} placeholder={this.props.datePlaceholder} onChange={this.valueChanged} yearRange={this.props.yearRange} />
+					<DateInput ref="dateInput" name={this.props.path} format={this.props.dateFormat} value={this.state.value} placeholder={this.props.datePlaceholder} onChange={this.valueChanged} yearRange={this.props.yearRange} timezone={this.props.timezone} />
 					<button type="button" className="btn btn-default btn-set-today" onClick={this.setToday}>Today</button>
 				</div>
 			);

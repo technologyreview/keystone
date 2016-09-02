@@ -76,7 +76,7 @@ module.exports = Field.create({
 		if (this.shouldRenderField()) {
 			input = (
 				<div className={fieldClassName}>
-					<DateInput ref="dateInput" name={this.props.paths.date} value={this.state.dateValue} placeholder={this.props.datePlaceholder} format={this.props.dateFormat} onChange={this.dateChanged} />
+					<DateInput ref="dateInput" name={this.props.paths.date} value={this.state.dateValue} placeholder={this.props.datePlaceholder} format={this.props.dateFormat} timezone={this.props.timezone} onChange={this.dateChanged} />
 					<input type="text" name={this.props.paths.time} value={this.state.timeValue} placeholder={this.props.timePlaceholder} onChange={this.timeChanged} autoComplete="off" className="form-control time" />
 					<button type="button" className="btn btn-default btn-set-now" onClick={this.setNow}>Now</button>
 				</div>
